@@ -786,4 +786,4 @@ def update_pm2_led(n_intervals):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
