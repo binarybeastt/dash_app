@@ -784,6 +784,5 @@ def update_pm2_led(n_intervals):
     latest_pm2 = chunk['Pm2'].iloc[-1]  
     return f"{latest_pm2:.2f}"
 
-
 if __name__ == '__main__':
     app.run_server()
