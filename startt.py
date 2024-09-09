@@ -28,6 +28,7 @@ def get_next_data_chunk(chunk_size=10):
     return chunk
 
 app = dash.Dash(__name__, suppress_callback_exceptions=True)
+server = app.server
 dark_mode_styles = {
     "background-color": "#1e1e1e",
     "color": "#ffffff",
