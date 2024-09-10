@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 import plotly.figure_factory as ff
 import numpy as np
 
-df = pd.read_csv('chart-device.csv')
+df = pd.read_csv('combined_sorted_data.csv')
 df['Time'] = pd.to_datetime(df['Time'])
 df['Hour'] = df['Time'].dt.hour
 df['Weekday'] = df['Time'].dt.day_name()
@@ -384,7 +384,7 @@ def update_pm_chart(n_interval, active_tab):
         plot_bgcolor="#1e1e1e", 
         paper_bgcolor="#1e1e1e", 
         margin=dict(l=0, r=0, t=50, b=0),
-        yaxis=dict(range=[0, 100]), 
+        yaxis=dict(range=[0, 990]), 
         xaxis=dict(
             tickmode='linear',
             dtick=1,
@@ -453,7 +453,7 @@ def update_VOC_chart(n_intervals, active_tab):
     [dash.dependencies.Input('interval-component', 'n_intervals'),
      dash.dependencies.Input('tabs-example', 'value')]
 )
-def update_VOC_chart(n_intervals, active_tab):
+def update_No2_chart(n_intervals, active_tab):
     if active_tab!='tab-2':
         return no_update
     chunk = get_next_data_chunk()
@@ -480,7 +480,7 @@ def update_VOC_chart(n_intervals, active_tab):
         plot_bgcolor="#1e1e1e", 
         paper_bgcolor="#1e1e1e", 
         margin=dict(l=0, r=0, t=50, b=0),
-        yaxis=dict(range=[0, 2]), 
+        yaxis=dict(range=[0, 3]), 
         xaxis=dict(
             tickmode='linear',
             dtick=1,
@@ -498,14 +498,15 @@ def update_VOC_chart(n_intervals, active_tab):
 
 @app.callback(
     dash.dependencies.Output('ammonia-variations', 'figure'),
-    [dash.dependencies.Input('ammonia-variations', 'id')]
+    [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
-def update_VOC_chart(_):
+def update_Nh3_chart(n_intervals):
+    chunk = get_next_data_chunk()
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(
-        x=df['Time'],
-        y=df['Nh3'],
+        x=chunk['Time'],
+        y=chunk['Nh3'],
         mode='lines',
         name='Pm2',
     ))
@@ -524,15 +525,14 @@ def update_VOC_chart(_):
         plot_bgcolor="#1e1e1e", 
         paper_bgcolor="#1e1e1e", 
         margin=dict(l=0, r=0, t=50, b=0),
-        yaxis=dict(range=[0, 500]), 
+        yaxis=dict(range=[0, 150]), 
         xaxis=dict(
             tickmode='linear',
             dtick=1,
             showline=False,
             showgrid=False,
             zeroline=False,
-            showticklabels=True,
-            range=[past_24_hours, now],  
+            showticklabels=True, 
         )
     )
     fig.update_xaxes(
@@ -543,14 +543,15 @@ def update_VOC_chart(_):
 
 @app.callback(
     dash.dependencies.Output('li-variations', 'figure'),
-    [dash.dependencies.Input('li-variations', 'id')]
+    [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
-def update_Li_chart(_):
+def update_Li_chart(n_intervals):
+    chunk = get_next_data_chunk()
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(
-        x=df['Time'],
-        y=df['Li'],
+        x=chunk['Time'],
+        y=chunk['Li'],
         mode='lines',
         name='Li',
     ))
@@ -569,15 +570,14 @@ def update_Li_chart(_):
         plot_bgcolor="#1e1e1e", 
         paper_bgcolor="#1e1e1e", 
         margin=dict(l=0, r=0, t=50, b=0),
-        yaxis=dict(range=[0, 500]), 
+        yaxis=dict(range=[0, 750]), 
         xaxis=dict(
             tickmode='linear',
             dtick=1,
             showline=False,
             showgrid=False,
             zeroline=False,
-            showticklabels=True,
-            range=[past_24_hours, now],  
+            showticklabels=True, 
         )
     )
     fig.update_xaxes(
@@ -588,14 +588,15 @@ def update_Li_chart(_):
 
 @app.callback(
     dash.dependencies.Output('Np-variations', 'figure'),
-    [dash.dependencies.Input('Np-variations', 'id')]
+    [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
-def update_Np_chart(_):
+def update_Np_chart(n_intervals):
+    chunk = get_next_data_chunk()
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(
-        x=df['Time'],
-        y=df['Np'],
+        x=chunk['Time'],
+        y=chunk['Np'],
         mode='lines',
         name='Np',
     ))
@@ -621,8 +622,7 @@ def update_Np_chart(_):
             showline=False,
             showgrid=False,
             zeroline=False,
-            showticklabels=True,
-            range=[past_24_hours, now],  
+            showticklabels=True, 
         )
     )
     fig.update_xaxes(
@@ -634,14 +634,15 @@ def update_Np_chart(_):
 
 @app.callback(
     dash.dependencies.Output('Na-variations', 'figure'),
-    [dash.dependencies.Input('Na-variations', 'id')]
+    [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
-def update_Na_chart(_):
+def update_Na_chart(n_intervals):
+    chunk = get_next_data_chunk()
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(
-        x=df['Time'],
-        y=df['Na'],
+        x=chunk['Time'],
+        y=chunk['Na'],
         mode='lines',
         name='Pm2',
     ))
@@ -660,15 +661,14 @@ def update_Na_chart(_):
         plot_bgcolor="#1e1e1e", 
         paper_bgcolor="#1e1e1e", 
         margin=dict(l=0, r=0, t=50, b=0),
-        yaxis=dict(range=[0, 70]), 
+        yaxis=dict(range=[0, 90]), 
         xaxis=dict(
             tickmode='linear',
             dtick=1,
             showline=False,
             showgrid=False,
             zeroline=False,
-            showticklabels=True,
-            range=[past_24_hours, now],  
+            showticklabels=True, 
         )
     )
     fig.update_xaxes(
@@ -679,14 +679,15 @@ def update_Na_chart(_):
 
 @app.callback(
     dash.dependencies.Output('H2s-variations', 'figure'),
-    [dash.dependencies.Input('H2s-variations', 'id')]
+    [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
-def update_H2s_chart(_):
+def update_H2s_chart(n_intervals):
+    chunk = get_next_data_chunk()
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(
-        x=df['Time'],
-        y=df['H2s'],
+        x=chunk['Time'],
+        y=chunk['H2s'],
         mode='lines',
         name='H2s',
     ))
@@ -705,15 +706,14 @@ def update_H2s_chart(_):
         plot_bgcolor="#1e1e1e", 
         paper_bgcolor="#1e1e1e", 
         margin=dict(l=0, r=0, t=50, b=0),
-        yaxis=dict(range=[0, 2]), 
+        yaxis=dict(range=[0, 20]), 
         xaxis=dict(
             tickmode='linear',
             dtick=1,
             showline=False,
             showgrid=False,
             zeroline=False,
-            showticklabels=True,
-            range=[past_24_hours, now],  
+            showticklabels=True, 
         )
     )
     fig.update_xaxes(
