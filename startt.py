@@ -57,46 +57,165 @@ def build_quick_stats_panel():
                 style={"margin-bottom": "20px", "border": "1px solid #333", "padding": "10px"},
                 children=[
                     html.P("Current Temperature", style={"font-size": "15px"}),
-                    daq.LEDDisplay(
-                        id="temperature-led",
-                        color="#ff5733",
-                        backgroundColor="#1e2130",
-                        size=15,  
+                    html.Div(
+                        style={"display": "flex", "align-items": "center"},
+                        children=[
+                            daq.LEDDisplay(
+                                id="temperature-led",
+                                value='0.00',
+                                backgroundColor="#1e2130",
+                                size=15,
+                            ),
+                            html.Div( 
+                                style={"display": "flex", "flex-direction": "column", "align-items": "center", "margin-left": "10px"},
+                                children=[
+                                    html.P(id="temperature-status", style={"font-size": "12px", "margin": "0"}),  # Status text
+                                    daq.Indicator(
+                                        id="temperature-indicator-light",
+                                        color="green",  
+                                        size=15, 
+                                    )
+                                ]
+                            )
+                        ]
+                    ),
+                    html.P("Current NH3", style={"font-size": "15px"}),
+                    html.Div(
+                        style={"display": "flex", "align-items": "center"},
+                        children=[
+                            daq.LEDDisplay(
+                                id="ammonia-led",
+                                value='0.00',
+                                backgroundColor="#1e2130",
+                                size=15,
+                            ),
+                            html.Div( 
+                                style={"display": "flex", "flex-direction": "column", "align-items": "center", "margin-left": "10px"},
+                                children=[
+                                    html.P(id="ammonia-status", style={"font-size": "12px", "margin": "0"}),
+                                    daq.Indicator(
+                                        id="ammonia-indicator-light",
+                                        color="green", 
+                                        size=15,
+                                    )
+                                ]
+                            )
+                        ]
                     ),
                     html.P("Current H2s", style={"font-size": "15px"}),
-                    daq.LEDDisplay(
-                        id="h2s-led",
-                        color="#ff5733",
-                        backgroundColor="#1e2130",
-                        size=15,  
+                    html.Div(
+                        style={"display": "flex", "align-items": "center"},
+                        children=[
+                            daq.LEDDisplay(
+                                id="h2s-led",
+                                value='0.00',
+                                backgroundColor="#1e2130",
+                                size=15,
+                            ),
+                            html.Div(  
+                                style={"display": "flex", "flex-direction": "column", "align-items": "center", "margin-left": "10px"},
+                                children=[
+                                    html.P(id="h2s-status", style={"font-size": "12px", "margin": "0"}),  
+                                    daq.Indicator(
+                                        id="h2s-indicator-light",
+                                        color="green",  
+                                        size=15,
+                                    )
+                                ]
+                            )
+                        ]
                     ),
                     html.P("Current NO2", style={"font-size": "15px"}),
-                    daq.LEDDisplay(
-                        id="No2-led",
-                        color="#ff5733",
-                        backgroundColor="#1e2130",
-                        size=15,  
+                    html.Div(
+                        style={"display": "flex", "align-items": "center"},
+                        children=[
+                            daq.LEDDisplay(
+                                id="No2-led",
+                                value='0.00',
+                                backgroundColor="#1e2130",
+                                size=15,
+                            ),
+                            html.Div(  
+                                style={"display": "flex", "flex-direction": "column", "align-items": "center", "margin-left": "10px"},
+                                children=[
+                                    html.P(id="No2-status", style={"font-size": "12px", "margin": "0"}),  
+                                    daq.Indicator(
+                                        id="No2-indicator-light",
+                                        color="green",  
+                                        size=15,
+                                    )
+                                ]
+                            )
+                        ]
                     ),
                     html.P("Current Voc", style={"font-size": "15px"}),
-                    daq.LEDDisplay(
-                        id="Voc-led",
-                        color="#ff5733",
-                        backgroundColor="#1e2130",
-                        size=15,  
+                    html.Div(
+                        style={"display": "flex", "align-items": "center"},
+                        children=[
+                            daq.LEDDisplay(
+                                id="Voc-led",
+                                value='0.00',
+                                backgroundColor="#1e2130",
+                                size=15,
+                            ),
+                            html.Div(  
+                                style={"display": "flex", "flex-direction": "column", "align-items": "center", "margin-left": "10px"},
+                                children=[
+                                    html.P(id="Voc-status", style={"font-size": "12px", "margin": "0"}),  
+                                    daq.Indicator(
+                                        id="Voc-indicator-light",
+                                        color="green",  
+                                        size=15,
+                                    )
+                                ]
+                            )
+                        ]
                     ),
                     html.P("Current Pm10", style={"font-size": "15px"}),
-                    daq.LEDDisplay(
-                        id="Pm10-led",
-                        color="#ff5733",
-                        backgroundColor="#1e2130",
-                        size=15,  
+                    html.Div(
+                        style={"display": "flex", "align-items": "center"},
+                        children=[
+                            daq.LEDDisplay(
+                                id="Pm10-led",
+                                value='0.00',
+                                backgroundColor="#1e2130",
+                                size=15,
+                            ),
+                            html.Div(  
+                                style={"display": "flex", "flex-direction": "column", "align-items": "center", "margin-left": "10px"},
+                                children=[
+                                    html.P(id="Pm10-status", style={"font-size": "12px", "margin": "0"}),  
+                                    daq.Indicator(
+                                        id="Pm10-indicator-light",
+                                        color="green",  
+                                        size=15,
+                                    )
+                                ]
+                            )
+                        ]
                     ),
                     html.P("Current Pm2", style={"font-size": "15px"}),
-                    daq.LEDDisplay(
-                        id="Pm2-led",
-                        color="#ff5733",
-                        backgroundColor="#1e2130",
-                        size=15,  
+                    html.Div(
+                        style={"display": "flex", "align-items": "center"},
+                        children=[
+                            daq.LEDDisplay(
+                                id="Pm2-led",
+                                value='0.00',
+                                backgroundColor="#1e2130",
+                                size=15,
+                            ),
+                            html.Div(  
+                                style={"display": "flex", "flex-direction": "column", "align-items": "center", "margin-left": "10px"},
+                                children=[
+                                    html.P(id="Pm2-status", style={"font-size": "12px", "margin": "0"}),  
+                                    daq.Indicator(
+                                        id="Pm2-indicator-light",
+                                        color="green",  
+                                        size=15,
+                                    )
+                                ]
+                            )
+                        ]
                     ),
                 ],
             ),
@@ -722,68 +841,215 @@ def update_H2s_chart(n_intervals):
     )
     return fig
 
+# THRESHOLD_VALUES = {
+#     'temperature': 30.0,
+#     'ammonia': 0.5,
+#     'h2s': 1.0,
+#     'no2': 0.2,
+#     'voc': 0.3,
+#     'pm10': 50.0,
+#     'pm2': 25.0
+# }
+
 @app.callback(
-    dash.dependencies.Output('temperature-led', 'value'),
+    [dash.dependencies.Output('temperature-led', 'value'),
+     dash.dependencies.Output('temperature-indicator-light', 'color'),
+     dash.dependencies.Output('temperature-status', 'children')],  
     [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
 def update_temperature_led(n_intervals):
     chunk = get_next_data_chunk()
     latest_temp = chunk['Tm'].iloc[-1]  
-    return f"{latest_temp:.2f}"  
+    # return f"{latest_temp:.2f}"  
+    if latest_temp >= 41:
+        indicator_color = "red"  
+        status_text = "Lethal"
+    elif 35 <= latest_temp < 41:
+        indicator_color = "orange"  
+        status_text = "Distress"
+    elif 30 <= latest_temp < 35:
+        indicator_color = "yellow"  
+        status_text = "Stress"
+    elif 25 <= latest_temp < 30:
+        indicator_color = "green"  
+        status_text = "Comfort"
+    else:
+        indicator_color = "blue"  
+        status_text = "Cool"
+
+    return f"{latest_temp:.2f}", indicator_color, status_text
 
 @app.callback(
-    dash.dependencies.Output('ammonia-led', 'value'),
+    [dash.dependencies.Output('ammonia-led', 'value'),
+     dash.dependencies.Output('ammonia-indicator-light', 'color'),
+     dash.dependencies.Output('ammonia-status', 'children')],  
     [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
 def update_ammonia_led(n_intervals):
     chunk = get_next_data_chunk()
     latest_nh3 = chunk['Nh3'].iloc[-1]  
-    return f"{latest_nh3:.2f}" 
+    # return f"{latest_nh3:.2f}" 
+    if latest_nh3 >= 50:
+        indicator_color = "red"  
+        status_text = "Lethal"
+    elif 20 <= latest_nh3 < 25:
+        indicator_color = "orange"  
+        status_text = "Distress"
+    elif 10 <= latest_nh3 < 20:
+        indicator_color = "yellow"  
+        status_text = "Stress"
+    elif 0 <= latest_nh3 < 10:
+        indicator_color = "green"  
+        status_text = "Comfort"
+    else:
+        indicator_color = "blue"  
+        status_text = "Cool"
+
+    return f"{latest_nh3:.2f}", indicator_color, status_text
 
 @app.callback(
-    dash.dependencies.Output('h2s-led', 'value'),
+    [dash.dependencies.Output('h2s-led', 'value'),
+     dash.dependencies.Output('h2s-indicator-light', 'color'),
+     dash.dependencies.Output('h2s-status', 'children')],  
     [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
 def update_h2s_led(n_intervals):
     chunk = get_next_data_chunk()
     latest_h2s = chunk['H2s'].iloc[-1]  
-    return f"{latest_h2s:.2f}" 
+    # return f"{latest_h2s:.2f}" 
+    if latest_h2s >= 20:
+        indicator_color = "red"  
+        status_text = "Lethal"
+    elif 10 <= latest_h2s < 20:
+        indicator_color = "orange"  
+        status_text = "Distress"
+    elif 5 <= latest_h2s < 10:
+        indicator_color = "yellow"  
+        status_text = "Stress"
+    elif 0.5 <= latest_h2s < 5:
+        indicator_color = "green"  
+        status_text = "Comfort"
+    else:
+        indicator_color = "blue"  
+        status_text = "Cool"
+
+    return f"{latest_h2s:.2f}", indicator_color, status_text
 
 @app.callback(
-    dash.dependencies.Output('No2-led', 'value'),
+    [dash.dependencies.Output('No2-led', 'value'),
+     dash.dependencies.Output('No2-indicator-light', 'color'),
+     dash.dependencies.Output('No2-status', 'children')],  
     [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
 def update_no2_led(n_intervals):
     chunk = get_next_data_chunk()
     latest_no2 = chunk['No2'].iloc[-1]  
-    return f"{latest_no2:.2f}" 
+    # return f"{latest_no2:.2f}" 
+    if latest_no2 >= 20:
+        indicator_color = "red"  
+        status_text = "Lethal"
+    elif 10 <= latest_no2 < 20:
+        indicator_color = "orange"  
+        status_text = "Distress"
+    elif 5 <= latest_no2 < 10:
+        indicator_color = "yellow"  
+        status_text = "Stress"
+    elif 0 <= latest_no2 < 5:
+        indicator_color = "green"  
+        status_text = "Comfort"
+    else:
+        indicator_color = "blue"  
+        status_text = "Cool"
+
+    return f"{latest_no2:.2f}", indicator_color, status_text
+
 
 @app.callback(
-    dash.dependencies.Output('Voc-led', 'value'),
+    [dash.dependencies.Output('Voc-led', 'value'),
+     dash.dependencies.Output('Voc-indicator-light', 'color'),
+     dash.dependencies.Output('Voc-status', 'children')],  
     [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
 def update_voc_led(n_intervals):
     chunk = get_next_data_chunk()
     latest_voc = chunk['Voc'].iloc[-1]  
-    return f"{latest_voc:.2f}"
+    # return f"{latest_voc:.2f}"
+    if latest_voc >= 500:
+        indicator_color = "red"  
+        status_text = "Lethal"
+    elif 250 <= latest_voc < 500:
+        indicator_color = "orange"  
+        status_text = "Distress"
+    elif 150 <= latest_voc < 250:
+        indicator_color = "yellow"  
+        status_text = "Stress"
+    elif 100 <= latest_voc < 150:
+        indicator_color = "green"  
+        status_text = "Comfort"
+    else:
+        indicator_color = "blue"  
+        status_text = "Cool"
+
+    return f"{latest_voc:.2f}", indicator_color, status_text
+
 
 @app.callback(
-    dash.dependencies.Output('Pm10-led', 'value'),
+    [dash.dependencies.Output('Pm10-led', 'value'),
+     dash.dependencies.Output('Pm10-indicator-light', 'color'),
+     dash.dependencies.Output('Pm10-status', 'children')],  
     [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
 def update_pm10_led(n_intervals):
     chunk = get_next_data_chunk()
     latest_pm10 = chunk['Pm10'].iloc[-1]  
-    return f"{latest_pm10:.2f}"
+    # return f"{latest_pm10:.2f}"
+    if latest_pm10 >= 250:
+        indicator_color = "red"  
+        status_text = "Lethal"
+    elif 150 <= latest_pm10 < 250:
+        indicator_color = "orange"  
+        status_text = "Distress"
+    elif 60 <= latest_pm10 < 150:
+        indicator_color = "yellow"  
+        status_text = "Stress"
+    elif 50 <= latest_pm10 < 60:
+        indicator_color = "green"  
+        status_text = "Comfort"
+    else:
+        indicator_color = "blue"  
+        status_text = "Cool"
+
+    return f"{latest_pm10:.2f}", indicator_color, status_text
+
 
 @app.callback(
-    dash.dependencies.Output('Pm2-led', 'value'),
+    [dash.dependencies.Output('Pm2-led', 'value'),
+     dash.dependencies.Output('Pm2-indicator-light', 'color'),
+     dash.dependencies.Output('Pm2-status', 'children')],  
     [dash.dependencies.Input('interval-component', 'n_intervals')]
 )
 def update_pm2_led(n_intervals):
     chunk = get_next_data_chunk()
     latest_pm2 = chunk['Pm2'].iloc[-1]  
-    return f"{latest_pm2:.2f}"
+    # return f"{latest_pm2:.2f}"
+    if latest_pm2 >= 50:
+        indicator_color = "red"  
+        status_text = "Lethal"
+    elif 25 <= latest_pm2 < 50:
+        indicator_color = "orange"  
+        status_text = "Distress"
+    elif 15 <= latest_pm2 < 25:
+        indicator_color = "yellow"  
+        status_text = "Stress"
+    elif 12 <= latest_pm2 < 15:
+        indicator_color = "green"  
+        status_text = "Comfort"
+    else:
+        indicator_color = "blue"  
+        status_text = "Cool"
+
+    return f"{latest_pm2:.2f}", indicator_color, status_text
+
 
 if __name__ == '__main__':
     app.run_server()
