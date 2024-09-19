@@ -17,7 +17,7 @@ past_24_hours = now - timedelta(hours=24)
 past_6_hours = now - timedelta(hours=6)
 
 current_index = 0
-def get_next_data_chunk(chunk_size=10):
+def get_next_data_chunk(chunk_size=2):
     global current_index
     if current_index + chunk_size >= len(df):
         chunk = df[current_index:] 
@@ -79,7 +79,7 @@ def build_quick_stats_panel():
                             )
                         ]
                     ),
-                    html.P("Current NH3", style={"font-size": "15px"}),
+                    html.P(["Current NH", html.Sub("3")], style={"font-size": "15px"}),
                     html.Div(
                         style={"display": "flex", "align-items": "center"},
                         children=[
@@ -102,7 +102,7 @@ def build_quick_stats_panel():
                             )
                         ]
                     ),
-                    html.P("Current H2s", style={"font-size": "15px"}),
+                    html.P(["Current H", html.Sub("2"), "S"], style={"font-size": "15px"}),
                     html.Div(
                         style={"display": "flex", "align-items": "center"},
                         children=[
@@ -125,7 +125,7 @@ def build_quick_stats_panel():
                             )
                         ]
                     ),
-                    html.P("Current NO2", style={"font-size": "15px"}),
+                    html.P(["Current NO", html.Sub("2")], style={"font-size": "15px"}),
                     html.Div(
                         style={"display": "flex", "align-items": "center"},
                         children=[
@@ -251,7 +251,7 @@ app.layout = html.Div(
             style={"display": "flex", "height": "100vh", "width": "100vw", "overflow": "hidden"}
             
         ),
-        dcc.Interval(id='interval-component', interval=1000, n_intervals=0)
+        dcc.Interval(id='interval-component', interval=6000, n_intervals=0)
     ])
 @app.callback(
     dash.dependencies.Output('tabs-content-example', 'children'),
@@ -335,27 +335,13 @@ def update_time_series_chart(n_intervals, active_tab):
             showline=False,
             showgrid=False,
             zeroline=False,
-            showticklabels=True
+            showticklabels=True,
         ),
         yaxis=dict(
             showline=False,
             showgrid=False,
             zeroline=False,
             showticklabels=True
-        )
-    )
-    fig.update_xaxes(
-        rangeslider_visible=False,
-        rangeselector=dict(
-            buttons=list([
-                dict(count=5, label="5m", step="minute", stepmode="backward"),
-                dict(count=15, label="15m", step="minute", stepmode="backward"),
-                dict(count=1, label="1h", step="hour", stepmode="backward"),
-                dict(count=6, label="6h", step="hour", stepmode="backward"),
-                dict(count=1, label="1d", step="day", stepmode="backward"),
-                dict(step="all")
-            ]),
-            bgcolor="#1e1e1e",
         )
     )
     return fig
@@ -401,20 +387,6 @@ def update_temp_humidity_chart(n_intervals, active_tab):
             showgrid=False,
             zeroline=False,
             showticklabels=True
-        )
-    )
-    fig.update_xaxes(
-        rangeslider_visible=False,
-        rangeselector=dict(
-            buttons=list([
-                dict(count=5, label="5m", step="minute", stepmode="backward"),
-                dict(count=15, label="15m", step="minute", stepmode="backward"),
-                dict(count=1, label="1h", step="hour", stepmode="backward"),
-                dict(count=6, label="6h", step="hour", stepmode="backward"),
-                dict(count=1, label="1d", step="day", stepmode="backward"),
-                dict(step="all")
-            ]),
-            bgcolor="#1e1e1e",
         )
     )
     return fig
@@ -870,12 +842,9 @@ def update_temperature_led(n_intervals):
     elif 30 <= latest_temp < 35:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif 25 <= latest_temp < 30:
+    elif latest_temp < 30:
         indicator_color = "green"  
         status_text = "Comfort"
-    else:
-        indicator_color = "blue"  
-        status_text = "Cool"
 
     return f"{latest_temp:.2f}", indicator_color, status_text
 
@@ -898,12 +867,9 @@ def update_ammonia_led(n_intervals):
     elif 10 <= latest_nh3 < 20:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif 0 <= latest_nh3 < 10:
+    elif latest_nh3 < 10:
         indicator_color = "green"  
         status_text = "Comfort"
-    else:
-        indicator_color = "blue"  
-        status_text = "Cool"
 
     return f"{latest_nh3:.2f}", indicator_color, status_text
 
@@ -926,12 +892,9 @@ def update_h2s_led(n_intervals):
     elif 5 <= latest_h2s < 10:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif 0.5 <= latest_h2s < 5:
+    elif latest_h2s < 5:
         indicator_color = "green"  
         status_text = "Comfort"
-    else:
-        indicator_color = "blue"  
-        status_text = "Cool"
 
     return f"{latest_h2s:.2f}", indicator_color, status_text
 
@@ -954,12 +917,9 @@ def update_no2_led(n_intervals):
     elif 5 <= latest_no2 < 10:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif 0 <= latest_no2 < 5:
+    elif latest_no2 < 5:
         indicator_color = "green"  
         status_text = "Comfort"
-    else:
-        indicator_color = "blue"  
-        status_text = "Cool"
 
     return f"{latest_no2:.2f}", indicator_color, status_text
 
@@ -983,12 +943,9 @@ def update_voc_led(n_intervals):
     elif 150 <= latest_voc < 250:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif 100 <= latest_voc < 150:
+    elif latest_voc < 150:
         indicator_color = "green"  
         status_text = "Comfort"
-    else:
-        indicator_color = "blue"  
-        status_text = "Cool"
 
     return f"{latest_voc:.2f}", indicator_color, status_text
 
@@ -1012,12 +969,9 @@ def update_pm10_led(n_intervals):
     elif 60 <= latest_pm10 < 150:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif 50 <= latest_pm10 < 60:
+    elif latest_pm10 < 60:
         indicator_color = "green"  
         status_text = "Comfort"
-    else:
-        indicator_color = "blue"  
-        status_text = "Cool"
 
     return f"{latest_pm10:.2f}", indicator_color, status_text
 
@@ -1041,12 +995,9 @@ def update_pm2_led(n_intervals):
     elif 15 <= latest_pm2 < 25:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif 12 <= latest_pm2 < 15:
+    elif latest_pm2 < 15:
         indicator_color = "green"  
         status_text = "Comfort"
-    else:
-        indicator_color = "blue"  
-        status_text = "Cool"
 
     return f"{latest_pm2:.2f}", indicator_color, status_text
 
