@@ -857,7 +857,7 @@ def update_temperature_led(n_intervals):
 def update_ammonia_led(n_intervals):
     chunk = get_next_data_chunk()
     latest_nh3 = chunk['Nh3'].iloc[-1]  
-    # return f"{latest_nh3:.2f}" 
+    
     if latest_nh3 >= 50:
         indicator_color = "red"  
         status_text = "Lethal"
@@ -867,11 +867,12 @@ def update_ammonia_led(n_intervals):
     elif 10 <= latest_nh3 < 20:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif latest_nh3 < 10:
+    else:
         indicator_color = "green"  
         status_text = "Comfort"
-
+    
     return f"{latest_nh3:.2f}", indicator_color, status_text
+
 
 @app.callback(
     [dash.dependencies.Output('h2s-led', 'value'),
@@ -892,7 +893,7 @@ def update_h2s_led(n_intervals):
     elif 5 <= latest_h2s < 10:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif latest_h2s < 5:
+    else:
         indicator_color = "green"  
         status_text = "Comfort"
 
@@ -917,7 +918,7 @@ def update_no2_led(n_intervals):
     elif 5 <= latest_no2 < 10:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif latest_no2 < 5:
+    else:
         indicator_color = "green"  
         status_text = "Comfort"
 
@@ -943,7 +944,7 @@ def update_voc_led(n_intervals):
     elif 150 <= latest_voc < 250:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif latest_voc < 150:
+    else:
         indicator_color = "green"  
         status_text = "Comfort"
 
@@ -969,7 +970,7 @@ def update_pm10_led(n_intervals):
     elif 60 <= latest_pm10 < 150:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif latest_pm10 < 60:
+    else:
         indicator_color = "green"  
         status_text = "Comfort"
 
@@ -995,7 +996,7 @@ def update_pm2_led(n_intervals):
     elif 15 <= latest_pm2 < 25:
         indicator_color = "yellow"  
         status_text = "Stress"
-    elif latest_pm2 < 15:
+    else:
         indicator_color = "green"  
         status_text = "Comfort"
 
@@ -1003,4 +1004,4 @@ def update_pm2_led(n_intervals):
 
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=True)
